@@ -1,8 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
+import {DataContext} from '../Components/TodoData'
 
-function TodoListItem({todo,checkCompleted,editTodos}) {
+
+function TodoListItem({todo,checkCompleted,editTodos,deleteTodo}) {
 const [onEdit, setOnEdit] = useState(false)
 const [editValue, setEditValue] = useState(todo.title)
+const [todos, setTodos] = useContext(DataContext)
 
 const editTodo =() =>{
   setOnEdit(true)
@@ -16,7 +19,6 @@ const saveTodo =() =>{
     setEditValue(todo.title)
   }
 }
-
 
 if(onEdit){
   return (
@@ -39,7 +41,7 @@ if(onEdit){
         {todo.title}
       </label>
       <button type ="submit" disabled= {todo.completed} onClick={editTodo}>Редактировать</button>
-      <button type ="submit" disabled= {todo.completed}>Удалить</button>
+      <button type ="submit" disabled= {todo.completed} onClick ={() => {deleteTodo(todo.id)}}>Удалить</button>
     </li>
   )
 }

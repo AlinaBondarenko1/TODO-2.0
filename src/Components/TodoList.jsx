@@ -34,6 +34,11 @@ const editTodos = (editValue, id) =>{
   setTodos(newTodos)
 }
 
+const deleteTodo = (id) =>{
+ 
+ setTodos(todos.filter(todo => todo.id !== id))
+ console.log(id)
+}
 
   return (
     <ul>
@@ -44,6 +49,7 @@ const editTodos = (editValue, id) =>{
                 key={todo.id}
                 checkCompleted = {switchCompleted}
                 editTodos = {editTodos}
+                deleteTodo = {deleteTodo}
             />
         )
     })}
