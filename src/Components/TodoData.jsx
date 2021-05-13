@@ -13,6 +13,17 @@ export const TodoData = (props) =>{
     .catch(err => setError(err))
 },[])
 
+// useEffect(() =>{
+//   const todoStore = JSON.parse(localStorage.getItem('todoStore'))
+//   if(todoStore) setTodos(todoStore)
+// },[])
+
+//  useEffect(() =>{
+//    localStorage.setItem('todoStore', JSON.stringify(todos))
+//  },[todos])
+
+
+
 return (
   <DataContext.Provider value={[todos, setTodos]}>
     {props.children}
