@@ -1,24 +1,23 @@
-import React, {useState,useContext} from 'react'
-import {DataContext} from '../Components/TodoData'
+import React, {useState} from 'react'
+// import {DataContext} from '../Components/TodoData'
 
 
-function TodoListItem({todo,checkCompleted,editTodos,deleteTodo}) {
+function TodoListItem({todo,checkTask,renameTask,removeTask}) {
 const [onEdit, setOnEdit] = useState(false)
 const [editValue, setEditValue] = useState(todo.title)
-const [todos, setTodos] = useContext(DataContext)
 
-const editTodo =() =>{
-  setOnEdit(true)
-}
+// const editTodo =() =>{
+//   setOnEdit(true)
+// }
 
-const saveTodo =() =>{
-  setOnEdit(false)
-  if(editValue) {
-    editTodos(editValue, todo.id)
-  } else {
-    setEditValue(todo.title)
-  }
-}
+// const saveTodo =() =>{
+//   setOnEdit(false)
+//   if(editValue) {
+//     editTodos(editValue, todo.id)
+//   } else {
+//     setEditValue(todo.title)
+//   }
+// }
 
 if(onEdit){
   return (
@@ -26,7 +25,7 @@ if(onEdit){
         <input type ="text" value = {editValue}
          onChange ={e => setEditValue(e.target.value)}/>
   
-      <button  onClick={() => saveTodo(todo.id)}>Сохранить</button>
+      <button  onClick={() =>{renameTask(todo,editValue);  setOnEdit(false)}}>Сохранить</button>
 
     </li>
   )
@@ -35,13 +34,13 @@ if(onEdit){
     <li>
       <label className ={todo.completed ? "true":""}>
         <input type ="checkbox"
-        checked = {todo.completed}
-        onChange ={() => checkCompleted(todo.id)}
+        defaultChecked = {todo.completed}
+        onChange ={() => checkTask(todo)}
         />
         {todo.title}
       </label>
-      <button type ="submit" disabled= {todo.completed} onClick={editTodo}>Редактировать</button>
-      <button type ="submit" disabled= {todo.completed} onClick ={() => {deleteTodo(todo.id)}}>Удалить</button>
+      <button type ="submit" disabled= {todo.completed} onClick={() =>{setOnEdit(true)}}>Редактировать</button>
+      <button type ="submit" disabled= {todo.completed} onClick ={() => {removeTask(todo.id)}}>Удалить</button>
     </li>
   )
 }

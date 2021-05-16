@@ -1,34 +1,37 @@
 import React, {useState, useContext} from 'react'
 import {DataContext} from '../Components/TodoData'
+// import {TodoData} from './Components/TodoData'
 
 
-
-function TodoForm() {
-const [todos, setTodos] = useContext(DataContext)
+function TodoForm({addTask}) {
 const [input, setInput] = useState('')
 
-const addTodo = e => {
-  e.preventDefault()
-  setTodos([
-    ...todos,
-    {
-      id: Date.now(),
-      title: input,
-      completed: false,
-      sequence: todos.length
-    }
-  ])
-  setInput('')
-}
+
+// const addTodo = (e,{addTask}) => {
+//   debugger
+//   e.preventDefault()
+//   addTask()
+//   console.log('addTodo')
+//   setTodos([
+//     ...todos,
+//     {
+//       id: Date.now(),
+//       title: input,
+//       completed: false,
+//       sequence: todos.length
+//     }
+//   ])
+//   setInput('')
+// }
 
   return (
-    <form onSubmit ={addTodo}>
+    <div>
       <input type="text" name ="todos"
       value ={input} 
       onChange ={e => setInput(e.target.value)}
       ></input>
-      <button type ="submit">Создать</button>
-    </form>
+      <button type ="submit" onClick={ () => {addTask(input)}}>Создать</button>
+    </div>
   )
 }
 

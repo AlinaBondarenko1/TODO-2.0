@@ -1,19 +1,22 @@
 import React, {useContext} from 'react'
 import TodoListItem from '../Components/TodoListItem'
-import {DataContext} from '../Components/TodoData'
+// import {DataContext} from '../Components/TodoData'
+import Context from '../Context'
 
-function TodoList() {
+function TodoList({removeTask,checkTask,renameTask,showCopletedTasks}) {
 
-  const [todos, setTodos] = useContext(DataContext)
-  console.log(todos)
+ const [todos, setTodos] = useContext(Context)
+
+  const todosFilter = showCopletedTasks ? todos.filter(tasks => tasks.completed) : todos.filter(tasks => !tasks.completed)
+ console.log('todosComplited:',todosFilter)
   
 const switchCompleted = (id) =>{
 const newTodos = [...todos]
 newTodos.forEach((todo) => {
   if(todo.id === id)
   todo.completed = !todo.completed
-  console.log(newTodos)
 })
+
 setTodos(newTodos)
 //    setTodos(todos.map((curr) => {
 //     if (curr.id === id) {
@@ -42,14 +45,14 @@ const deleteTodo = (id) =>{
 
   return (
     <ul>
-    {todos.map((todo) => {
+    {todosFilter.map((todo) => {
         return (
             <TodoListItem
                 todo={todo} 
                 key={todo.id}
-                checkCompleted = {switchCompleted}
-                editTodos = {editTodos}
-                deleteTodo = {deleteTodo}
+                checkTask = {checkTask}
+                renameTask = {renameTask}
+                removeTask = {removeTask}
             />
         )
     })}
