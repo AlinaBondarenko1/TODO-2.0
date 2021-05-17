@@ -13,7 +13,7 @@ code {
 }
 
 .App{
- max-width: 350px;
+ max-width: 400px;
  width: 100%;
  min-height: 400px;
  backdrop-filter: blur(5px);
@@ -28,4 +28,8 @@ ul li{
   margin: 10px 0;
   padding: 10px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+
 }

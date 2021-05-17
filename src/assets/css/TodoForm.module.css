@@ -1,0 +1,27 @@
+
+.TodoForm__conteiner{
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0 10px 0;
+}
+
+.TodoForm__button{  
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.TodoForm__button:hover{
+  transition: all 0.2s;
+	box-shadow: 0 7px 14px rgb(65 132 144 / 40%), 0 3px 6px rgb(0 0 0 / 20%);
+  background-color: rgb( 75, 183, 141 );
+  }
+    
+.TodoForm__input{
+  width: 250px;
+	font-size: 13px;
+	padding: 6px 0 4px 10px;
+	border: 1px solid #cecece;
+	background: #F6F6f6;
+	border-radius: 8px;
+}

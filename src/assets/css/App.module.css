@@ -1,0 +1,13 @@
+
+.AppTitle__Active{
+color: darkgreen;
+}
+
+.AppTitle__Inactive{
+  color: darkred;
+}
+
+.AppTitle{
+  font-size: 40px;
+  padding-bottom: 20px;
+}

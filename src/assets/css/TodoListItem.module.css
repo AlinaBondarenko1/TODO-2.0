@@ -1,0 +1,40 @@
+.TodoListItem__EditBtn{
+  padding: 3px 7px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.TodoListItem__EditBtn:hover{
+  transition: all 0.2s;
+	box-shadow: 0 7px 14px rgb(65 132 144 / 40%), 0 3px 6px rgb(0 0 0 / 20%);
+  background-color: rgb(105, 39, 226);
+  }
+
+  .TodoListItem__DelBtn{
+    padding: 3px 7px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .TodoListItem__DelBtn:hover{
+    transition: all 0.2s;
+    box-shadow: 0 7px 14px rgb(65 132 144 / 40%), 0 3px 6px rgb(0 0 0 / 20%);
+    background-color: rgb(204, 102, 102);
+    }
+  
+
+.completed{
+  text-decoration: line-through;
+  color: crimson;
+  font-weight:bold; 
+}
+
+input[type="checkbox"]{
+  width:19px;
+  height:19px;
+  cursor:pointer;
+  color:darkgreen;
+}
+
+label{
+display: flex;
+align-items: center;
+}

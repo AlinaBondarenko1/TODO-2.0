@@ -1,38 +1,23 @@
-import React, {useState, useContext} from 'react'
-import {DataContext} from '../Components/TodoData'
-// import {TodoData} from './Components/TodoData'
-
+import React, {useState} from 'react'
+import PropTypes from 'prop-types'
+import styles from '../assets/css/TodoForm.module.css';
 
 function TodoForm({addTask}) {
 const [input, setInput] = useState('')
 
-
-// const addTodo = (e,{addTask}) => {
-//   debugger
-//   e.preventDefault()
-//   addTask()
-//   console.log('addTodo')
-//   setTodos([
-//     ...todos,
-//     {
-//       id: Date.now(),
-//       title: input,
-//       completed: false,
-//       sequence: todos.length
-//     }
-//   ])
-//   setInput('')
-// }
-
   return (
-    <div>
-      <input type="text" name ="todos"
-      value ={input} 
+    <div className = {styles.TodoForm__conteiner}>
+      <input type="text" name ="todos" className = {styles.TodoForm__input}
+      value ={input} placeholder ="Введите текст..."
       onChange ={e => setInput(e.target.value)}
       ></input>
-      <button type ="submit" onClick={ () => {addTask(input)}}>Создать</button>
+      <button className = {styles.TodoForm__button} type ="submit" onClick={ () => {addTask(input)}}>Создать</button>
     </div>
   )
+}
+
+TodoForm.propTypes = {
+  addTask: PropTypes.func
 }
 
 export default TodoForm
