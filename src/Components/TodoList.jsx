@@ -2,11 +2,12 @@ import React, {useContext} from 'react'
 import TodoListItem from '../Components/TodoListItem'
 import Context from '../Context'
 import PropTypes from 'prop-types'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 function TodoList({removeTask,checkTask,renameTask,showCopletedTasks}) {
 
  const [todos, setTodos] = useContext(Context)
-
+//  const [task, updateTask] = useContext(todos)
   const todosFilter = showCopletedTasks ? todos.filter(tasks => tasks.completed) : todos.filter(tasks => !tasks.completed)
 
   {/*
@@ -43,22 +44,49 @@ const deleteTodo = (id) =>{
  console.log(id)
 }*/}
 
+
   return (
-    <div className = "TodoList__container">
-    <ul>
-    {todosFilter.map((todo) => {
-        return (
-            <TodoListItem
-                todo={todo} 
-                key={todo.id}
-                checkTask = {checkTask}
-                renameTask = {renameTask}
-                removeTask = {removeTask}
-            />
-        )
-    })}
-</ul>
-</div>
+
+<DragDropContext> {/*Контейнер для перетаскивания*/}
+  <div className = "TodoList__container">
+            <Droppable droppableId="task">  
+                {(provided) => (
+                    <div 
+                    {...provided.droppableProps} 
+                    ref ={provided.innerRef}>
+                      <ul>
+                        {todosFilter.map((todo,index) => {
+                            return (
+                                <Draggable 
+                                key={todo.id} 
+                                draggableId={"" + todo.id} 
+                                // index={todo.sequence}
+                                index={index}
+                                > 
+                                    {(provided) => (
+                                        <div 
+                                        {...provided.draggableProps} 
+                                        {...provided.dragHandleProps} 
+                                        ref={provided.innerRef}>
+                                        <TodoListItem
+                                            todo={todo} 
+                                            key={todo.id}
+                                            checkTask = {checkTask}
+                                            renameTask = {renameTask}
+                                            removeTask = {removeTask}
+                                                        />
+                                        </div>
+                                    )}
+                                </Draggable>
+                            );
+                        })}
+                        </ul>
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+            </div>
+        </DragDropContext>
   )
 }
 

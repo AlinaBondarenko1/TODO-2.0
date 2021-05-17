@@ -39,6 +39,7 @@ if(onEdit){
         />
         {todo.title}
       </label>
+
     <div>
       <button className = {styles.TodoListItem__EditBtn} type ="submit" disabled= {todo.completed} onClick={() =>{setOnEdit(true)}}>Редактировать</button>
       <button className = {styles.TodoListItem__DelBtn} type ="submit" disabled= {todo.completed} onClick ={() => {removeTask(todo.id)}}>Удалить</button>
