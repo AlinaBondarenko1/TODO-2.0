@@ -12,7 +12,7 @@ function App() {
   const [todos, setTodos] = useState([]); 
 
   const todosСompleted = todos.filter(tasks => tasks.completed)
-  const todosNotСompleted = todos.filter(tasks => !tasks.completed)
+  const todosInСompleted = todos.filter(tasks => !tasks.completed)
 
 //Запрос данных
   useEffect(() => {
@@ -24,10 +24,16 @@ function App() {
 //Отправка данных
 const addTask = useCallback((title) => {    
 
+  function calcTodoSequence(){
+    const calcTodo = todos.filter(tasks => !tasks.completed)
+    console.log("calcTodo: ", calcTodo)
+    return calcTodo === undefined ? 1 : calcTodo.length + 1;
+}
+
   const newTask = {
       completed: false,
-      title: title,
-      sequence: 1
+      title:  title === "" ? "Default" : title,
+      sequence: calcTodoSequence()
   }
   console.log('addTask')
   axios.post("http://185.246.66.84:3000/abondarenko/tasks", newTask)
@@ -97,7 +103,7 @@ const renameTask = useCallback((task, newTitle) => {
     <Context.Provider value = {[todos, setTodos]}>
     <div className="App">
       <h1 className={styles.AppTitle}>ToDO List</h1>
-      <h3 className={styles.AppTitle__Active}>Активные задачи: {todosNotСompleted.length}</h3>
+      <h3 className={styles.AppTitle__Active}>Активные задачи: {todosInСompleted.length}</h3>
       <TodoForm addTask ={addTask}/>
       <TodoList removeTask ={removeTask} checkTask ={checkTask} renameTask = {renameTask}/>
       <h3 className={styles.AppTitle__Inactive}>Завершенные задачи: {todosСompleted.length}</h3>

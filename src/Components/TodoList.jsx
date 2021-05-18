@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import TodoListItem from '../Components/TodoListItem'
 import Context from '../Context'
 import PropTypes from 'prop-types'
@@ -7,9 +7,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 function TodoList({removeTask,checkTask,renameTask,showCopletedTasks}) {
 
  const [todos, setTodos] = useContext(Context)
-//  const [task, updateTask] = useContext(todos)
   const todosFilter = showCopletedTasks ? todos.filter(tasks => tasks.completed) : todos.filter(tasks => !tasks.completed)
-
+  const [task, updateTask] = useState(todosFilter);
   {/*
 const switchCompleted = (id) =>{
 const newTodos = [...todos]
@@ -45,23 +44,49 @@ const deleteTodo = (id) =>{
 }*/}
 
 
+
+function handleOnDragEnd(result) {
+
+  if (!result.destination) {
+    return;
+  };
+  console.log(result)
+  // const items = Array.from(task);
+  // const [reorderedItem] = todosFilter.splice(result.source.index, 1);
+  // todosFilter.splice(result.destination.index, 0, reorderedItem);
+
+  // updateTask(todosFilter);
+
+  // if (result.destination.index === result.source.index) {
+  //   return;
+  // }
+
+  // updateTask(result.source.index, result.destination.index);
+}
+
   return (
 
-<DragDropContext> {/*Контейнер для перетаскивания*/}
+<DragDropContext onDragEnd={handleOnDragEnd}> {/*Контейнер для перетаскивания*/}
   <div className = "TodoList__container">
             <Droppable droppableId="task">  
-                {(provided) => (
+                {(provided,snapshot ) => (
                     <div 
                     {...provided.droppableProps} 
-                    ref ={provided.innerRef}>
+                    ref = {provided.innerRef}
+                    style= {{
+                      background: snapshot.isDraggingOver ? "lightblue": "",
+                      width: 300,
+                    }}
+                    >
                       <ul>
                         {todosFilter.map((todo,index) => {
                             return (
                                 <Draggable 
                                 key={todo.id} 
                                 draggableId={"" + todo.id} 
-                                // index={todo.sequence}
-                                index={index}
+                                index={todo.sequence}
+                                isDragDisabled={todo.completed}
+                                // index={index}
                                 > 
                                     {(provided) => (
                                         <div 
