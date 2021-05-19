@@ -10,6 +10,7 @@ import styles from './assets/css/App.module.css';
 function App() {
   const apiUrl = 'http://185.246.66.84:3000/abondarenko/tasks/'
   const apiSubUrl = 'http://185.246.66.84:3000/abondarenko/subtasks/'
+  const apiSubAddUrl = 'http://185.246.66.84:3000/abondarenko/subtasks'
 
   const [, setError] = useState(null);
   const [todos, setTodos] = useState([]); 
@@ -27,13 +28,16 @@ function App() {
     // .then(response => {
     //   setTodos(prev =>{
     //         return [
-    //             ...prev.filter(curr => curr.id === taskId.id),
+    //             ...prev.filter(curr => curr.id === todos.id),
     //             response.data
     //         ]
     //     });
     // })
     .catch(err => setError(err))
 },[])
+
+
+
 
 //Добавление данных в Todo
 const addTask = useCallback((title) => {    
@@ -71,9 +75,10 @@ const addSubTask = useCallback((id) => {
       completed: false,
       sequence: 1,
       taskId: id,
-      title: "Subtask for Task" + id
+      title: "Subtask for Task " + id
   }
-  axios.post(apiSubUrl, newSubTask)
+
+  axios.post(apiSubAddUrl, newSubTask)
   .then(response => {
     setSubTodos(prev =>
           [
@@ -124,6 +129,24 @@ const checkTask = useCallback((todos) => {
   })
   .catch(error => console.log(error));
 },[setTodos])
+//Обновление подзадачи 
+const checkSubTask = useCallback((todoSub) => {
+  axios.put(apiSubUrl + todoSub.id, {
+    completed: !todoSub.completed,
+    sequence: todoSub.sequence,
+    taskId: todoSub.taskId,
+    title: todoSub.title,             
+  })
+  .then(response => {
+    setSubTodos(prev =>{
+          return [
+              ...prev.filter(curr => curr.id !== todoSub.id),
+              response.data
+          ]
+      });
+  })
+  .catch(error => console.log(error));
+},[setSubTodos])
 
 //Обновление имени
 const renameTask = useCallback((task, newTitle) => {
@@ -190,9 +213,9 @@ const updateSequence = useCallback((result) => {
       <h1 className={styles.AppTitle}>ToDO List</h1>
       <h3 className={styles.AppTitle__Active}>Активные задачи: {todosInСompleted.length}</h3>
       <TodoForm addTask ={addTask}/>
-      <TodoList removeTask ={removeTask} checkTask ={checkTask} renameTask = {renameTask} updateSequence={updateSequence} addSubTask ={addSubTask} removeSubTask = {removeSubTask} renameSubTask={renameSubTask}/>
+      <TodoList removeTask ={removeTask} checkTask ={checkTask} renameTask = {renameTask} updateSequence={updateSequence} addSubTask ={addSubTask} removeSubTask = {removeSubTask} renameSubTask={renameSubTask} checkSubTask={checkSubTask}/>
       <h3 className={styles.AppTitle__Inactive}>Завершенные задачи: {todosСompleted.length}</h3>
-      <TodoList removeTask ={removeTask} checkTask ={checkTask} renameTask = {renameTask} showCopletedTasks ={true} updateSequence={updateSequence} addSubTask ={addSubTask}/>
+      <TodoList removeTask ={removeTask} checkTask ={checkTask} renameTask = {renameTask} showCopletedTasks ={true} updateSequence={updateSequence} addSubTask ={addSubTask} removeSubTask = {removeSubTask} renameSubTask={renameSubTask} checkSubTask={checkSubTask}/>
       </div>
     </div>
     </SubContext.Provider>

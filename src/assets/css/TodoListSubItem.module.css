@@ -1,5 +1,53 @@
 .subItem__container{
   display: flex;
   margin: 5px 0 5px 0;
+}
 
+.TodoSubListItem__Btn {
+  padding: 3px 7px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.hoverEdit:hover {
+  transition: all 0.2s;
+  box-shadow: 0 7px 14px rgb(65 132 144 / 40%), 0 3px 6px rgb(0 0 0 / 20%);
+  background-color: rgb(105, 39, 226);
+}
+
+
+.hoverDel:hover {
+  transition: all 0.2s;
+  box-shadow: 0 7px 14px rgb(65 132 144 / 40%), 0 3px 6px rgb(0 0 0 / 20%);
+  background-color: rgb(204, 102, 102);
+}
+
+.hoverAddSave:hover {
+  transition: all 0.2s;
+  box-shadow: 0 7px 14px rgb(65 132 144 / 40%), 0 3px 6px rgb(0 0 0 / 20%);
+  background-color: rgb(236, 227, 88);
+}
+
+.completed {
+  text-decoration: line-through;
+  color: crimson;
+  font-weight: bold;
+}
+
+input[type="checkbox"] {
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+  color: darkgreen;
+  
+  margin-right: 8px;
+
+}
+
+.TodoSubListItem__input {
+  font-size: 13px;
+  padding: 8px 0 2px 10px;
+  border: 1px solid #cecece;
+  background: #F6F6f6;
+  border-radius: 8px;
 }

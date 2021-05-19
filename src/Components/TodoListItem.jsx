@@ -5,7 +5,7 @@ import cn from 'class-names'
 import SubContext from '../SubContext'
 import TodoListSubItem from '../Components/TodoListSubItem'
 
-function TodoListItem({todo,checkTask,renameTask,removeTask,addSubTask,removeSubTask,renameSubTask}) {
+function TodoListItem({todo,checkTask,renameTask,removeTask,addSubTask,removeSubTask,renameSubTask,checkSubTask}) {
 const [onEdit, setOnEdit] = useState(false)
 const [editValue, setEditValue] = useState(todo.title)
 const [subTodos, setSubTodos] = useContext(SubContext)
@@ -51,6 +51,7 @@ if(onEdit){
         type ="submit" disabled= {todo.completed} onClick={() =>{setOnEdit(true)}}>Редактировать</button>
         <button className = {cn( styles.TodoListItem__Btn, {[styles.hoverDel]: !todo.completed})}  type ="submit" disabled= {todo.completed} onClick ={() => {removeTask(todo.id)}}>Удалить</button>
       </div>
+      
     </div>
 
         <div className ={styles.container__subTodo}>
@@ -62,6 +63,7 @@ if(onEdit){
               todoSub={todoSub}
               removeSubTask ={removeSubTask}
               renameSubTask ={renameSubTask}
+              checkSubTask ={checkSubTask}
               /> 
               );
               })}
@@ -77,7 +79,11 @@ TodoListItem.propTypes = {
   todo: PropTypes.object,
   checkTask: PropTypes.func,
   renameTask: PropTypes.func,
-  removeTask: PropTypes.func
+  removeTask: PropTypes.func,
+  todoSub:PropTypes.object,
+  removeSubTask: PropTypes.func,
+  renameSubTask: PropTypes.func,
+  checkSubTask: PropTypes.func
 }
 
 export default TodoListItem
