@@ -13,7 +13,7 @@
 }
 
 .wrapper{ 
-  margin-top: 250px;
+  
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -23,6 +23,7 @@
   backdrop-filter: blur(5px);
   box-shadow: 0 0 55px #000; 
   border-radius: 3%;
+  padding: 20px 0 20px 0;
 }
 
 li{

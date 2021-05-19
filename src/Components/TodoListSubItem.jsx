@@ -3,22 +3,38 @@ import PropTypes from 'prop-types'
 import styles from '../assets/css/TodoListSubItem.module.css';
 import cn from 'class-names'
 
-function TodoListItem({todoSub ,setSubTodos}) {
+function TodoListItem({todoSub ,removeSubTask,renameSubTask}) {
+  const [onEdit, setOnEdit] = useState(false)
+  const [editValue, setEditValue] = useState(todoSub.title)
 
-
-  return (
-    <div className ={styles.subItem__container}>
+if(onEdit){
+  return (    
+  <div className ={styles.subItem__container}>
       <li>
       <label>
-        <input type ="checkbox"/>
-        {todoSub.title}
+      <input type ="text" value = {editValue}
+         onChange ={e => setEditValue(e.target.value)}/>
         
       </label>
-      <button type ="submit" >Редактировать</button>
-      <button type ="submit" >Удалить</button>
+      <button  onClick={() =>{renameSubTask(todoSub,editValue);  setOnEdit(false)}}  >Сохранить</button>
       </li>
     </div>
+    )
+}else{
+  return (
+    <div className ={styles.subItem__container}>
+    <li>
+    <label>
+      <input type ="checkbox"/>
+      {todoSub.title}
+      
+    </label>
+    <button type ="submit" onClick={() =>{setOnEdit(true)}}>Редактировать</button>
+    <button type ="submit" onClick ={() => {removeSubTask(todoSub.id)}}>Удалить</button>
+    </li>
+  </div>
   )
+}
 }
 
 

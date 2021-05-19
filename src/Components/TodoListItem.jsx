@@ -5,7 +5,7 @@ import cn from 'class-names'
 import SubContext from '../SubContext'
 import TodoListSubItem from '../Components/TodoListSubItem'
 
-function TodoListItem({todo,checkTask,renameTask,removeTask,addSubTask}) {
+function TodoListItem({todo,checkTask,renameTask,removeTask,addSubTask,removeSubTask,renameSubTask}) {
 const [onEdit, setOnEdit] = useState(false)
 const [editValue, setEditValue] = useState(todo.title)
 const [subTodos, setSubTodos] = useContext(SubContext)
@@ -60,7 +60,8 @@ if(onEdit){
               <TodoListSubItem 
               key={todoSub.id}
               todoSub={todoSub}
-
+              removeSubTask ={removeSubTask}
+              renameSubTask ={renameSubTask}
               /> 
               );
               })}

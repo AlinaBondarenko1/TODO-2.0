@@ -6,7 +6,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styles from '../assets/css/TodoList.module.css';
 
 
-function TodoList({removeTask,checkTask,renameTask,showCopletedTasks,updateSequence, addSubTask}) {
+function TodoList({removeTask,checkTask,renameTask,showCopletedTasks,updateSequence, addSubTask ,removeSubTask ,renameSubTask}) {
 
  const [todos, setTodos] = useContext(Context)
   const todosFilter = showCopletedTasks ? todos.filter(tasks => tasks.completed) : todos.filter(tasks => !tasks.completed)
@@ -110,8 +110,9 @@ function handleOnDragEnd(result) {
                                             checkTask = {checkTask}
                                             renameTask = {renameTask}
                                             removeTask = {removeTask} 
-                                            addSubTask = {addSubTask}/>
-                                            
+                                            addSubTask = {addSubTask}
+                                            removeSubTask = {removeSubTask}
+                                            renameSubTask = {renameSubTask}/>
                                         </div>
                                         
                                     )}
