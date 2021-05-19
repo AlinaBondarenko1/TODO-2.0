@@ -1,12 +1,14 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
 import PropTypes from 'prop-types'
 import styles from '../assets/css/TodoListItem.module.css';
 import cn from 'class-names'
+import SubContext from '../SubContext'
+import TodoListSubItem from '../Components/TodoListSubItem'
 
-function TodoListItem({todo,checkTask,renameTask,removeTask}) {
+function TodoListItem({todo,checkTask,renameTask,removeTask,addSubTask}) {
 const [onEdit, setOnEdit] = useState(false)
 const [editValue, setEditValue] = useState(todo.title)
-
+const [subTodos, setSubTodos] = useContext(SubContext)
 // const editTodo =() =>{
 //   setOnEdit(true)
 // }
@@ -23,26 +25,47 @@ const [editValue, setEditValue] = useState(todo.title)
 if(onEdit){
   return (
     <li>
-        <input type ="text" value = {editValue}
+        <input className = {styles.TodoListItem__input} type ="text" value = {editValue}
          onChange ={e => setEditValue(e.target.value)}/>
   
-      <button className = {styles.TodoListItem__button} onClick={() =>{renameTask(todo,editValue);  setOnEdit(false)}} >Сохранить</button>
+      <button className = {cn( styles.TodoListItem__Btn, styles.hoverAddSave)}  onClick={() =>{renameTask(todo,editValue);  setOnEdit(false)}} >Сохранить</button>
     </li>
   )
 }else{
   return (
     <li>
-      <label className ={cn({[styles.completed]: todo.completed})}>
-        <input type ="checkbox"
-        defaultChecked = {todo.completed}
-        onChange ={() => checkTask(todo)}
-        />
-        {todo.title}
-      </label>
+      <div className ={styles.wrapper}>   
+      <div className ={styles.container__Todo}>
+        <label className = {cn({[styles.completed]: todo.completed})}>
+          <input type ="checkbox"
+          defaultChecked = {todo.completed}
+          onChange ={() => checkTask(todo)}
+          />
+          {todo.title}
+        </label>
 
-    <div>
-      <button className = {styles.TodoListItem__EditBtn} type ="submit" disabled= {todo.completed} onClick={() =>{setOnEdit(true)}}>Редактировать</button>
-      <button className = {styles.TodoListItem__DelBtn} type ="submit" disabled= {todo.completed} onClick ={() => {removeTask(todo.id)}}>Удалить</button>
+      <div className ={styles.container__btn}>
+      <button className = {cn( styles.TodoListItem__Btn, {[styles.BtnColor_Add]: !todo.completed}, {[styles.hoverAddSave]: !todo.completed})} type ="submit" disabled= {todo.completed} onClick ={() => {addSubTask(todo.id)}}>+</button>
+        <button className = {cn( styles.TodoListItem__Btn, {[styles.hoverEdit]: !todo.completed})}
+
+        type ="submit" disabled= {todo.completed} onClick={() =>{setOnEdit(true)}}>Редактировать</button>
+        <button className = {cn( styles.TodoListItem__Btn, {[styles.hoverDel]: !todo.completed})}  type ="submit" disabled= {todo.completed} onClick ={() => {removeTask(todo.id)}}>Удалить</button>
+      </div>
+    </div>
+
+        <div className ={styles.container__subTodo}>
+          <ul>    
+            {subTodos.map((todoSub) => {
+              return (  
+              <TodoListSubItem 
+              key={todoSub.id}
+              todoSub={todoSub}
+
+              /> 
+              );
+              })}
+          </ul>
+        </div>
     </div>
     </li>
   )

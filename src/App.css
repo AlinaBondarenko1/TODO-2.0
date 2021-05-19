@@ -5,7 +5,24 @@
 }
 
 .App {
+  height: 100vh;
+  display: flex;
+  align-items:center;
+  justify-content: center; 
+
+}
+
+.wrapper{ 
+  margin-top: 250px;
+  display: flex;
   text-align: center;
+  flex-direction: column;
+  /* border: 3px solid red; */
+  width: 400px;
+  height: auto;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 55px #000; 
+  border-radius: 3%;
 }
 
 li{
@@ -15,5 +32,3 @@ li{
 body{
     background: url('./Img/trees-975091_1920.jpg') no-repeat;
 }
-
-

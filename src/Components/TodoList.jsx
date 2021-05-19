@@ -3,12 +3,13 @@ import TodoListItem from '../Components/TodoListItem'
 import Context from '../Context'
 import PropTypes from 'prop-types'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import styles from '../assets/css/TodoList.module.css';
 
-function TodoList({removeTask,checkTask,renameTask,showCopletedTasks}) {
+
+function TodoList({removeTask,checkTask,renameTask,showCopletedTasks,updateSequence, addSubTask}) {
 
  const [todos, setTodos] = useContext(Context)
   const todosFilter = showCopletedTasks ? todos.filter(tasks => tasks.completed) : todos.filter(tasks => !tasks.completed)
-  const [task, updateTask] = useState(todosFilter);
   {/*
 const switchCompleted = (id) =>{
 const newTodos = [...todos]
@@ -50,12 +51,21 @@ function handleOnDragEnd(result) {
   if (!result.destination) {
     return;
   };
-  console.log(result)
+  console.log("result", result)
+
+  updateSequence(result);
+// const startIndex = result.source.index;
+// const endIndex = result.destination.index;
+// console.log("startIndex:",startIndex)
+// console.log("endIndex:",endIndex)
+
+
+
   // const items = Array.from(task);
   // const [reorderedItem] = todosFilter.splice(result.source.index, 1);
   // todosFilter.splice(result.destination.index, 0, reorderedItem);
 
-  // updateTask(todosFilter);
+  // updateTask(todo sFilter);
 
   // if (result.destination.index === result.source.index) {
   //   return;
@@ -66,20 +76,21 @@ function handleOnDragEnd(result) {
 
   return (
 
-<DragDropContext onDragEnd={handleOnDragEnd}> {/*Контейнер для перетаскивания*/}
-  <div className = "TodoList__container">
+<DragDropContext onDragEnd={handleOnDragEnd}>
+  <div className = {styles.TodoList__container}>
             <Droppable droppableId="task">  
                 {(provided,snapshot ) => (
-                    <div 
+                    <div className ={styles.TodoList__itemDnd} 
                     {...provided.droppableProps} 
                     ref = {provided.innerRef}
                     style= {{
                       background: snapshot.isDraggingOver ? "lightblue": "",
-                      width: 300,
+                      width: 400,
                     }}
                     >
                       <ul>
-                        {todosFilter.map((todo,index) => {
+                        {todosFilter.map((todo) => {
+                          
                             return (
                                 <Draggable 
                                 key={todo.id} 
@@ -98,15 +109,19 @@ function handleOnDragEnd(result) {
                                             key={todo.id}
                                             checkTask = {checkTask}
                                             renameTask = {renameTask}
-                                            removeTask = {removeTask}
-                                                        />
+                                            removeTask = {removeTask} 
+                                            addSubTask = {addSubTask}/>
+                                            
                                         </div>
+                                        
                                     )}
+
                                 </Draggable>
                             );
                         })}
-                        </ul>
                         {provided.placeholder}
+                        </ul>
+                        
                     </div>
                 )}
             </Droppable>
@@ -119,7 +134,8 @@ TodoList.propTypes = {
   removeTask: PropTypes.func,
   checkTask: PropTypes.func,
   renameTask: PropTypes.func,
-  showCopletedTasks: PropTypes.bool
+  showCopletedTasks: PropTypes.bool,
+  updateSequence: PropTypes.func,
 }
 
 export default TodoList
