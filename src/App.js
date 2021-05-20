@@ -183,7 +183,6 @@ const checkTask = useCallback((todos,newSubTodos) => {
 
 
     newSubTodos.forEach(element => {
-      
       checkSubTask(element)
     })
 
