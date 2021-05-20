@@ -11,7 +11,7 @@ const [editValue, setEditValue] = useState(todo.title)
 const [subTodos, setSubTodos] = useContext(SubContext)
 
 const newSubTodos = subTodos.filter(subTodo => subTodo.taskId === todo.id);
-console.log("newSubTodos " , newSubTodos)
+// console.log("newSubTodos " , newSubTodos)
 // const editTodo =() =>{
 //   setOnEdit(true)
 // }
@@ -42,7 +42,7 @@ if(onEdit){
         <label className = {cn({[styles.completed]: todo.completed})}>
           <input type ="checkbox"
           defaultChecked = {todo.completed}
-          onChange ={() => checkTask(todo)}
+          onChange ={() => checkTask(todo,newSubTodos)}
           />
           {todo.title}
         </label>

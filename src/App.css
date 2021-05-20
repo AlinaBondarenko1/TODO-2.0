@@ -6,17 +6,12 @@
 
 .App {
   height: 100vh;
-  display: flex;
-  align-items:center;
-  justify-content: center; 
-
+ 
 }
 
 .wrapper{ 
-  display: flex;
+  margin: 0 auto;
   text-align: center;
-  flex-direction: column;
-  /* border: 3px solid red; */
   width: 400px;
   height: auto;
   backdrop-filter: blur(5px);

@@ -6,6 +6,7 @@ import Context from './Context'
 import SubContext from './SubContext'
 import axios from 'axios'
 import styles from './assets/css/App.module.css';
+import { element } from 'prop-types';
 
 function App() {
   const apiUrl = 'http://185.246.66.84:3000/abondarenko/tasks/'
@@ -75,7 +76,7 @@ const addSubTask = useCallback((id) => {
       completed: false,
       sequence: 1,
       taskId: id,
-      title: "Subtask for Task " + id
+      title: "Subtask " + id
   }
 
   axios.post(apiSubAddUrl, newSubTask)
@@ -112,8 +113,11 @@ const removeSubTask = useCallback((id) => {
   .catch(error => console.log(error));
 },[setSubTodos])  
 
+
+  
+
 //Обновление задачи
-const checkTask = useCallback((todos) => {
+const checkTask = useCallback((todos,newSubTodos) => {
   axios.put(apiUrl + todos.id, {
       completed: !todos.completed,
       title: todos.title,
@@ -126,9 +130,82 @@ const checkTask = useCallback((todos) => {
               response.data
           ]
       });
-  })
+
+
+
+    //   const arrTodo = []
+    //   newSubTodos.forEach(element => {
+        
+    //     arrTodo.push(axios.put(apiSubUrl + element.id, element))
+    //   });
+
+    //   axios.all(arrTodo)
+    //   .then(response => {
+     
+
+    //     setSubTodos(prev =>{
+    //       const arr1 = []
+    //       response.forEach(element =>{
+    //         arr1.push(element.data)
+    //       })
+         
+    // const q = [
+    //   ...prev.filter(curr => {
+    //           let d = true
+    //             newSubTodos.forEach(element => {
+    //                 if (element.id === curr.id) {
+    //                   d = false
+    //                   }
+    //               });
+    //               return d;
+    //           }),
+       
+    //           arr1
+        
+    // ]
+
+    
+    //       return [
+    //       ...prev.filter(curr => {
+    //               let d = true
+    //                 newSubTodos.forEach(element => {
+    //                     if (element.id === curr.id) {
+    //                       d = false
+    //                       }
+    //                   });
+    //                   return d;
+    //               }),
+           
+    //         ...response
+    //     ]
+    //      });
+    //   });
+
+
+    newSubTodos.forEach(element => {
+      
+      checkSubTask(element)
+    })
+
+    setSubTodos(prev =>{
+      const ar = [ ...prev.filter(curr => {
+        let d = true
+          newSubTodos.forEach(element => {
+              if (element.id === curr.id) {
+                d = false
+                }
+            });
+            return d;
+        }),
+        ...newSubTodos
+              ]
+      console.log(ar)
+    return ar
+    });
+})
   .catch(error => console.log(error));
-},[setTodos])
+},[setTodos,setSubTodos])
+
 //Обновление подзадачи 
 const checkSubTask = useCallback((todoSub) => {
   axios.put(apiSubUrl + todoSub.id, {

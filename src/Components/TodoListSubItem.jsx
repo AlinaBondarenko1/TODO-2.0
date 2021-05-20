@@ -27,15 +27,19 @@ if(onEdit){
     <div className ={styles.subItem__container}>
 
     <li>
-    <label className = {cn({[styles.completed]: todoSub.completed})}>
-      <input type ="checkbox"   
-      defaultChecked = {todoSub.completed}
-      onChange ={() => checkSubTask(todoSub)}/>
-      {todoSub.title}
-      
-    </label>
-    <button type ="submit" onClick={() =>{setOnEdit(true)}} className = {cn( styles.TodoSubListItem__Btn, {[styles.hoverEdit]: !todo.completed})} disabled= {todo.completed || todoSub.completed}>Редактировать</button>
-    <button type ="submit" onClick ={() => {removeSubTask(todoSub.id)}} className = {cn( styles.TodoSubListItem__Btn, {[styles.hoverDel]: !todo.completed})} disabled= {todo.completed || todoSub.completed}>Удалить</button>
+      <div className = {styles.subItem_container_text}>
+        <label className = {cn({[styles.completed]: todoSub.completed})}>
+          <input type ="checkbox" 
+          disabled= {todo.completed}
+          defaultChecked = {todoSub.completed}
+          onChange ={() => checkSubTask(todoSub)}/>
+          {todoSub.title}
+        </label>
+    </div>
+    <div className = {styles.subItem_container_btn}>
+        <button type ="submit" onClick={() =>{setOnEdit(true)}} className = {cn( styles.TodoSubListItem__Btn, {[styles.hoverEdit]: !todoSub.completed})} disabled= {todo.completed || todoSub.completed}>Редактировать</button>
+        <button type ="submit" onClick ={() => {removeSubTask(todoSub.id)}} className = {cn( styles.TodoSubListItem__Btn, {[styles.hoverDel]: !todoSub.completed})} disabled= {todo.completed || todoSub.completed}>Удалить</button>
+    </div>
     </li>
   </div>
   )
