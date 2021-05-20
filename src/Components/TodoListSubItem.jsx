@@ -4,7 +4,7 @@ import styles from '../assets/css/TodoListSubItem.module.css';
 import cn from 'class-names'
 
 
-function TodoListItem({todoSub ,removeSubTask,renameSubTask,checkSubTask}) {
+function TodoListItem({todo,todoSub ,removeSubTask,renameSubTask,checkSubTask}) {
   const [onEdit, setOnEdit] = useState(false)
   const [editValue, setEditValue] = useState(todoSub.title)
 
@@ -34,8 +34,8 @@ if(onEdit){
       {todoSub.title}
       
     </label>
-    <button type ="submit" onClick={() =>{setOnEdit(true)}} className = {cn( styles.TodoSubListItem__Btn, {[styles.hoverEdit]: !todoSub.completed})} disabled= {todoSub.completed}>Редактировать</button>
-    <button type ="submit" onClick ={() => {removeSubTask(todoSub.id)}} className = {cn( styles.TodoSubListItem__Btn, {[styles.hoverDel]: !todoSub.completed})} disabled= {todoSub.completed}>Удалить</button>
+    <button type ="submit" onClick={() =>{setOnEdit(true)}} className = {cn( styles.TodoSubListItem__Btn, {[styles.hoverEdit]: !todo.completed})} disabled= {todo.completed || todoSub.completed}>Редактировать</button>
+    <button type ="submit" onClick ={() => {removeSubTask(todoSub.id)}} className = {cn( styles.TodoSubListItem__Btn, {[styles.hoverDel]: !todo.completed})} disabled= {todo.completed || todoSub.completed}>Удалить</button>
     </li>
   </div>
   )

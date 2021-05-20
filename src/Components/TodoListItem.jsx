@@ -9,6 +9,9 @@ function TodoListItem({todo,checkTask,renameTask,removeTask,addSubTask,removeSub
 const [onEdit, setOnEdit] = useState(false)
 const [editValue, setEditValue] = useState(todo.title)
 const [subTodos, setSubTodos] = useContext(SubContext)
+
+const newSubTodos = subTodos.filter(subTodo => subTodo.taskId === todo.id);
+console.log("newSubTodos " , newSubTodos)
 // const editTodo =() =>{
 //   setOnEdit(true)
 // }
@@ -56,9 +59,10 @@ if(onEdit){
 
         <div className ={styles.container__subTodo}>
           <ul>    
-            {subTodos.map((todoSub) => {
+            {newSubTodos.map((todoSub) => {
               return (  
               <TodoListSubItem 
+              todo={todo}
               key={todoSub.id}
               todoSub={todoSub}
               removeSubTask ={removeSubTask}
