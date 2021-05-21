@@ -41,7 +41,7 @@ if(onEdit){
       <div className ={styles.container__Todo}>
         <label className = {cn({[styles.completed]: todo.completed})}>
           <input type ="checkbox"
-          defaultChecked = {todo.completed}
+          checked = {todo.completed}
           onChange ={() => checkTask(todo,newSubTodos)}
           />
           {todo.title}

@@ -81,4 +81,5 @@ width: 370px;
 
 .container__btn{
   display: flex;
+  height: 25px;
 }

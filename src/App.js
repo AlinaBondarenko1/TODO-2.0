@@ -37,9 +37,6 @@ function App() {
     .catch(err => setError(err))
 },[])
 
-
-
-
 //Добавление данных в Todo
 const addTask = useCallback((title) => {    
 
@@ -113,15 +110,10 @@ const removeSubTask = useCallback((id) => {
   .catch(error => console.log(error));
 },[setSubTodos])  
 
-
-  
-
 //Обновление задачи
 const checkTask = useCallback((todos,newSubTodos) => {
   axios.put(apiUrl + todos.id, {
-      completed: !todos.completed,
-      title: todos.title,
-      sequence: todos.sequence           
+    ...todos, completed: !todos.completed          
   })
   .then(response => {
     setTodos(prev =>{
@@ -131,78 +123,15 @@ const checkTask = useCallback((todos,newSubTodos) => {
           ]
       });
 
+  newSubTodos.forEach(item =>{
+    axios.put(apiSubUrl + item.id, {...item, completed: !item.completed});
+  })
 
-
-    //   const arrTodo = []
-    //   newSubTodos.forEach(element => {
-        
-    //     arrTodo.push(axios.put(apiSubUrl + element.id, element))
-    //   });
-
-    //   axios.all(arrTodo)
-    //   .then(response => {
-     
-
-    //     setSubTodos(prev =>{
-    //       const arr1 = []
-    //       response.forEach(element =>{
-    //         arr1.push(element.data)
-    //       })
-         
-    // const q = [
-    //   ...prev.filter(curr => {
-    //           let d = true
-    //             newSubTodos.forEach(element => {
-    //                 if (element.id === curr.id) {
-    //                   d = false
-    //                   }
-    //               });
-    //               return d;
-    //           }),
-       
-    //           arr1
-        
-    // ]
-
-    
-    //       return [
-    //       ...prev.filter(curr => {
-    //               let d = true
-    //                 newSubTodos.forEach(element => {
-    //                     if (element.id === curr.id) {
-    //                       d = false
-    //                       }
-    //                   });
-    //                   return d;
-    //               }),
-           
-    //         ...response
-    //     ]
-    //      });
-    //   });
-
-
-    // newSubTodos.forEach(element => {
-    //   checkSubTask(element)
-    // })
-
-    // setSubTodos(prev =>{
-    //   const ar = [ ...prev.filter(curr => {
-    //     let d = true
-    //       newSubTodos.forEach(element => {
-    //           if (element.id === curr.id) {
-    //             d = false
-    //             }
-    //         });
-    //         return d;
-    //     }),
-        
-    //     ...newSubTodos
-    //           ]
-              
-    //   console.log(ar)
-    // return ar
-    // });
+  setSubTodos(prev => prev.map(item => {
+    if(newSubTodos.includes(item))
+      return {...item, completed: !item.completed};
+    return item;
+  }))
 })
   .catch(error => console.log(error));
 },[setTodos,setSubTodos])
@@ -210,10 +139,7 @@ const checkTask = useCallback((todos,newSubTodos) => {
 //Обновление подзадачи 
 const checkSubTask = useCallback((todoSub) => {
   axios.put(apiSubUrl + todoSub.id, {
-    completed: !todoSub.completed,
-    sequence: todoSub.sequence,
-    taskId: todoSub.taskId,
-    title: todoSub.title,             
+    ...todoSub, completed: !todoSub.completed  
   })
   .then(response => {
     setSubTodos(prev =>{
@@ -229,10 +155,8 @@ const checkSubTask = useCallback((todoSub) => {
 //Обновление имени
 const renameTask = useCallback((task, newTitle) => {
   if (task.title !== newTitle){
-      axios.put(apiUrl + task.id, {
-          completed: task.completed,
-          title: newTitle,
-          sequence: task.sequence           
+      axios.put(apiUrl + task.id, { 
+          ...task, title: newTitle     
       })
       .then(response => {
         setTodos(prev =>{
@@ -251,10 +175,7 @@ const renameTask = useCallback((task, newTitle) => {
 const renameSubTask = useCallback((task, newTitle) => {
   if (task.title !== newTitle){
       axios.put(apiSubUrl + task.id, {
-          completed: task.completed,
-          sequence: task.sequence,
-          taskId: task.taskId,
-          title: newTitle,    
+        ...task, title: newTitle
       })
       .then(response => {
         setSubTodos(prev =>{

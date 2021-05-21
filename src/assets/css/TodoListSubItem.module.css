@@ -54,10 +54,15 @@ input[type="checkbox"] {
 
 .subItem_container_text{
   display: flex;
-  
   width: 160px;
 }
 
 .subItem_container_btn{
   display: flex;
 }
+
+.subItem_label{
+  font-size: 14px;
+  word-break: break-all;
+}
+

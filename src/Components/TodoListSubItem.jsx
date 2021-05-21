@@ -28,12 +28,14 @@ if(onEdit){
 
     <li>
       <div className = {styles.subItem_container_text}>
-        <label className = {cn({[styles.completed]: todoSub.completed})}>
-          <input type ="checkbox" 
-          disabled= {todo.completed}
-          defaultChecked = {todoSub.completed}
-          onChange ={() => checkSubTask(todoSub)}/>
-          {todoSub.title}
+        <label className = {cn(styles.subItem_label,{[styles.completed]: todoSub.completed})}>
+         <div>
+            <input type ="checkbox" 
+            disabled= {todo.completed}
+            checked = {todoSub.completed}
+            onChange ={() => checkSubTask(todoSub)}/>
+            {todoSub.title}
+          </div>
         </label>
     </div>
     <div className = {styles.subItem_container_btn}>
