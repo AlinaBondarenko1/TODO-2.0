@@ -182,25 +182,27 @@ const checkTask = useCallback((todos,newSubTodos) => {
     //   });
 
 
-    newSubTodos.forEach(element => {
-      checkSubTask(element)
-    })
+    // newSubTodos.forEach(element => {
+    //   checkSubTask(element)
+    // })
 
-    setSubTodos(prev =>{
-      const ar = [ ...prev.filter(curr => {
-        let d = true
-          newSubTodos.forEach(element => {
-              if (element.id === curr.id) {
-                d = false
-                }
-            });
-            return d;
-        }),
-        ...newSubTodos
-              ]
-      console.log(ar)
-    return ar
-    });
+    // setSubTodos(prev =>{
+    //   const ar = [ ...prev.filter(curr => {
+    //     let d = true
+    //       newSubTodos.forEach(element => {
+    //           if (element.id === curr.id) {
+    //             d = false
+    //             }
+    //         });
+    //         return d;
+    //     }),
+        
+    //     ...newSubTodos
+    //           ]
+              
+    //   console.log(ar)
+    // return ar
+    // });
 })
   .catch(error => console.log(error));
 },[setTodos,setSubTodos])
