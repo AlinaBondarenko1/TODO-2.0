@@ -85,7 +85,7 @@ function handleOnDragEnd(result) {
                     ref = {provided.innerRef}
                     style= {{
                       background: snapshot.isDraggingOver ? "lightblue": "",
-                      width: 400,
+                      
                     }}
                     >
                       <ul>

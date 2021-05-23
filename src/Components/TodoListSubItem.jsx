@@ -17,7 +17,9 @@ if(onEdit){
          onChange ={e => setEditValue(e.target.value)}/>
         
       </label>
-      <button className = {cn( styles.TodoSubListItem__Btn, styles.hoverAddSave)} onClick={() =>{renameSubTask(todoSub,editValue);  setOnEdit(false)}} >Сохранить</button>
+      <div className = {styles.TodoSubListItem__container_saveBtb} >
+        <button className = {cn( styles.TodoSubListItem__Btn, styles.hoverAddSave)} onClick={() =>{renameSubTask(todoSub,editValue);  setOnEdit(false)}} >Сохранить</button>
+      </div>
       </li>
     </div>
     )

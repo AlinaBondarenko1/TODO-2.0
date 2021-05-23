@@ -1,7 +1,7 @@
 .subItem__container{
   display: flex;
   margin: 5px 0 5px 0;
-
+  border: 3px solid green;
 }
 
 .TodoSubListItem__Btn {
@@ -49,16 +49,27 @@ input[type="checkbox"] {
   border: 1px solid #cecece;
   background: #F6F6f6;
   border-radius: 8px;
+  min-width: 300px;
 }
 
 
 .subItem_container_text{
   display: flex;
-  width: 160px;
+  
+  /* max-width: 350px; */
+  border: 3px solid red;
+}
+
+
+.subItem_container_title{
+  display: flex;
 }
 
 .subItem_container_btn{
   display: flex;
+
+  justify-content:flex-end;
+  border: 3px solid yellow;
 }
 
 .subItem_label{
@@ -66,3 +77,8 @@ input[type="checkbox"] {
   word-break: break-all;
 }
 
+.TodoSubListItem__container_saveBtb{
+  display: flex;
+
+  justify-content:flex-end;
+}
