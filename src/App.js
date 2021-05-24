@@ -124,12 +124,12 @@ const checkTask = useCallback((todos,newSubTodos) => {
       });
 
   newSubTodos.forEach(item =>{
-    axios.put(apiSubUrl + item.id, {...item, completed: !item.completed});
+    axios.put(apiSubUrl + item.id, {...item, completed: !todos.completed});
   })
 
   setSubTodos(prev => prev.map(item => {
     if(newSubTodos.includes(item))
-      return {...item, completed: !item.completed};
+      return {...item, completed: !todos.completed};
     return item;
   }))
 })

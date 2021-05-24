@@ -99,25 +99,33 @@ function handleOnDragEnd(result) {
                                 isDragDisabled={todo.completed}
                                 // index={index}
                                 > 
-                                    {(provided) => (
-                                        <div 
-                                        {...provided.draggableProps} 
-                                        {...provided.dragHandleProps} 
-                                        ref={provided.innerRef}>
-                                        <TodoListItem
-                                            todo={todo} 
-                                            key={todo.id}
-                                            checkTask = {checkTask}
-                                            renameTask = {renameTask}
-                                            removeTask = {removeTask} 
-                                            addSubTask = {addSubTask}
-                                            removeSubTask = {removeSubTask}
-                                            renameSubTask = {renameSubTask}
-                                            checkSubTask={checkSubTask}/>
-                                        </div>
-                                        
-                                    )}
-
+                                
+                                    {(provided, snapshot) => {
+                                        if (snapshot.isDragging) {
+                                          const offset = { x: 380, y: 0 } //фиксирует позицию элемента
+                                          const x = provided.draggableProps.style.left - offset.x;
+                                          const y = provided.draggableProps.style.top - offset.y;
+                                          provided.draggableProps.style.left = x;
+                                          provided.draggableProps.style.top = y;
+                                               }
+                                               return (
+                                                <div 
+                                                {...provided.draggableProps} 
+                                                {...provided.dragHandleProps} 
+                                                ref={provided.innerRef}>
+                                                <TodoListItem
+                                                    todo={todo} 
+                                                    key={todo.id}
+                                                    checkTask = {checkTask}
+                                                    renameTask = {renameTask}
+                                                    removeTask = {removeTask} 
+                                                    addSubTask = {addSubTask}
+                                                    removeSubTask = {removeSubTask}
+                                                    renameSubTask = {renameSubTask}
+                                                    checkSubTask={checkSubTask}/>
+                                                </div>
+                                                      );
+                                              }}
                                 </Draggable>
                             );
                         })}
