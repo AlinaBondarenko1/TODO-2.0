@@ -57,7 +57,7 @@ label {
 }
 
 .container__subTodo{
-  display: flex;
+  /* display: flex; */
   
   padding-left: 20px;
   padding-top: 15px;
