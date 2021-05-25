@@ -9,7 +9,19 @@ import styles from '../assets/css/TodoList.module.css';
 function TodoList({removeTask,checkTask,renameTask,showCopletedTasks,updateSequence, addSubTask ,removeSubTask ,renameSubTask,checkSubTask}) {
 
  const [todos, setTodos] = useContext(Context)
+
+  console.log("todos: ", todos)
+
   const todosFilter = showCopletedTasks ? todos.filter(tasks => tasks.completed) : todos.filter(tasks => !tasks.completed)
+  // console.log("todosFilter", todosFilter)
+
+  const filttrInProgress = todos.filter(tasks => !tasks.completed);
+  console.log("In: ", filttrInProgress)
+
+
+  const [newTodos, setNewTodos] = useState(filttrInProgress);
+  console.log("newTodos: ", newTodos)
+
   {/*
 const switchCompleted = (id) =>{
 const newTodos = [...todos]
@@ -53,25 +65,22 @@ function handleOnDragEnd(result) {
   };
   console.log("result", result)
 
-  updateSequence(result);
-// const startIndex = result.source.index;
-// const endIndex = result.destination.index;
-// console.log("startIndex:",startIndex)
-// console.log("endIndex:",endIndex)
+  // const startIndex = result.source.index;
+  // const endIndex = result.destination.index;
+  // console.log("startIndex:",startIndex)
+  // console.log("endIndex:",endIndex)
 
 
+//   if (endIndex === startIndex) {
+//     return
+// }
+updateSequence(result);
+  // filttrInProgress.splice(endIndex,0,todosFilter.splice(startIndex,1))
 
-  // const items = Array.from(task);
-  // const [reorderedItem] = todosFilter.splice(result.source.index, 1);
-  // todosFilter.splice(result.destination.index, 0, reorderedItem);
+  // const [reorderedItem] = filttrInProgress.splice(startIndex, 1);
+  //filttrInProgress.splice(endIndex, 0, reorderedItem);
+  // console.log("reorderedItem: ", reorderedItem)
 
-  // updateTask(todo sFilter);
-
-  // if (result.destination.index === result.source.index) {
-  //   return;
-  // }
-
-  // updateTask(result.source.index, result.destination.index);
 }
 
   return (
@@ -98,8 +107,7 @@ function handleOnDragEnd(result) {
                                 index={todo.sequence}
                                 isDragDisabled={todo.completed}
                                 // index={index}
-                                > 
-                                
+                                >
                                     {(provided, snapshot) => {
                                         if (snapshot.isDragging) {
                                           const offset = { x: 380, y: 0 } //фиксирует позицию элемента
@@ -107,8 +115,8 @@ function handleOnDragEnd(result) {
                                           const y = provided.draggableProps.style.top - offset.y;
                                           provided.draggableProps.style.left = x;
                                           provided.draggableProps.style.top = y;
-                                               }
-                                               return (
+                                            }
+                                              return (
                                                 <div 
                                                 {...provided.draggableProps} 
                                                 {...provided.dragHandleProps} 
@@ -124,7 +132,7 @@ function handleOnDragEnd(result) {
                                                     renameSubTask = {renameSubTask}
                                                     checkSubTask={checkSubTask}/>
                                                 </div>
-                                                      );
+                                                    );
                                               }}
                                 </Draggable>
                             );

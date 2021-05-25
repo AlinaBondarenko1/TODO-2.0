@@ -69,9 +69,15 @@ function calcTodoSequence(){
 //Добавление данных в SubTodo
 const addSubTask = useCallback((id) => {
 
+  function calcSubTodoSequence(){
+    const calcSubTodo = subTodos.filter(tasks => !tasks.completed)
+    console.log("calcSubTodo: ", calcSubTodo)
+    return calcSubTodo === undefined ? 1 : calcSubTodo.length + 1;
+  }
+
   const newSubTask = {
       completed: false,
-      sequence: 1,
+      sequence: calcSubTodoSequence(),
       taskId: id,
       title: "Subtask " + id
   }
@@ -192,16 +198,27 @@ const renameSubTask = useCallback((task, newTitle) => {
 
 const updateSequence = useCallback((result) => {
 
+  
+  
   const startIndex = result.source.index;
   const endIndex = result.destination.index;
   console.log("startIndex:",startIndex)
   console.log("endIndex:",endIndex)
+  const items = Array.from(todos)
 
-  // axios.put(apiUrl, {
-        
+  const [reorderedItem] = items.splice(startIndex, 1)
+  items.splice(endIndex, 0, reorderedItem) 
+
+  items.forEach((task, index) => {  
+    console.log("task: ", task )
+    console.log("index: ", index )
+  })
+
+  // items.forEach(item =>{
+  //   axios.put(apiSubUrl + item.id, {...item, completed: !todos.completed});
   // })
-  // .then(response => {console.log(response.data)})
-},[]);
+
+},[todos]);
 
   return (
     <Context.Provider value = {[todos, setTodos]}>
